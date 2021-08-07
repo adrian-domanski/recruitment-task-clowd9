@@ -1,6 +1,8 @@
 import './styles/main.scss';
-// import * as DB from "../db/mock.json";
+import DataTable from './components/DataTable';
 
-const App = () => <h1>Hello World !</h1>;
+const App = () => {
+  return <DataTable />;
+};
 
 export default App;
