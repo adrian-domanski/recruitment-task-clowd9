@@ -1,1 +1,49 @@
 @import './global';
+
+#root {
+  // display: flex;
+  padding: 5rem 1rem;
+}
+
+.MuiPaper-root.MuiDrawer-paper.MuiDrawer-paperAnchorBottom.MuiDrawer-paperAnchorDockedBottom.MuiPaper-elevation0 {
+  position: relative;
+}
+
+.MuiDrawer-paperAnchorDockedBottom {
+  border-top: 0 !important;
+  overflow: hidden;
+}
+
+.arrowIcon {
+  opacity: 0.5;
+  transition: opacity, background-color 0.2s ease !important;
+  cursor: pointer;
+  padding: 5px;
+  border-radius: 50%;
+
+  &:hover {
+    opacity: 1;
+    background-color: #eee;
+  }
+}
+
+.drawer-row {
+  overflow: hidden;
+}
+
+.permissions-list {
+  display: flex;
+  justify-content: flex-end;
+}
+
+span.badge {
+  background-color: #eee;
+  display: block;
+  margin-left: 12px;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+// .MuiTableRow-root.Mui-selected {
+//   background: #eee !important;
+// }
