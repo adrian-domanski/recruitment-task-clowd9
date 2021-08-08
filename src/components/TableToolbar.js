@@ -26,6 +26,14 @@ const EnhancedTableHead = ({ setRows }) => {
     });
   };
 
+  const handleCloseFilters = () => {
+    setShowFilters(false);
+    setFilters({
+      name: '',
+      accountType: '',
+    });
+  };
+
   // Set initial rows, apply filters
   useEffect(() => {
     let rows = getAllRows();
@@ -74,14 +82,22 @@ const EnhancedTableHead = ({ setRows }) => {
           />
         </>
       )}
-      <Tooltip title='Filter list'>
-        <IconButton
-          aria-label='filter list'
-          onClick={() => setShowFilters(!showFilters)}
-        >
-          {showFilters ? <CloseIcon /> : <FilterListIcon />}
-        </IconButton>
-      </Tooltip>
+      {showFilters ? (
+        <Tooltip title='Close filters'>
+          <IconButton aria-label='close filters' onClick={handleCloseFilters}>
+            <CloseIcon />
+          </IconButton>
+        </Tooltip>
+      ) : (
+        <Tooltip title='Filter list'>
+          <IconButton
+            aria-label='filter list'
+            onClick={() => setShowFilters(!showFilters)}
+          >
+            <FilterListIcon />
+          </IconButton>
+        </Tooltip>
+      )}
     </Toolbar>
   );
 };
