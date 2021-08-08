@@ -45,3 +45,31 @@ export function stableSort(array, comparator) {
   });
   return stabilizedThis.map((el) => el[0]);
 }
+
+export const getHeadCells = () => [
+  {
+    id: 'id',
+    numeric: true,
+    disablePadding: true,
+    label: 'id',
+  },
+  { id: 'nameAndSurname', numeric: true, disablePadding: false, label: 'Name' },
+  {
+    id: 'accountType',
+    numeric: true,
+    disablePadding: false,
+    label: 'Account type',
+  },
+  {
+    id: 'createDate',
+    numeric: true,
+    disablePadding: false,
+    label: 'Create date',
+  },
+  {
+    id: 'permissions',
+    numeric: true,
+    disablePadding: false,
+    label: 'Permissions',
+  },
+];

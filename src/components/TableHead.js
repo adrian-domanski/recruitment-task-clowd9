@@ -1,39 +1,13 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import TableCell from '@material-ui/core/TableCell';
-import TableHead from '@material-ui/core/TableHead';
-import TableRow from '@material-ui/core/TableRow';
-import TableSortLabel from '@material-ui/core/TableSortLabel';
+import {
+  TableCell,
+  TableHead,
+  TableRow,
+  TableSortLabel,
+} from '@material-ui/core';
+import { getHeadCells } from '../utils';
 
-const headCells = [
-  {
-    id: 'id',
-    numeric: true,
-    disablePadding: true,
-    label: 'id',
-  },
-  { id: 'nameAndSurname', numeric: true, disablePadding: false, label: 'Name' },
-  {
-    id: 'accountType',
-    numeric: true,
-    disablePadding: false,
-    label: 'Account type',
-  },
-  {
-    id: 'createDate',
-    numeric: true,
-    disablePadding: false,
-    label: 'Create date',
-  },
-  {
-    id: 'permissions',
-    numeric: true,
-    disablePadding: false,
-    label: 'Permissions',
-  },
-];
-
-function EnhancedTableHead(props) {
+const EnhancedTableHead = (props) => {
   const { order, orderBy, onRequestSort } = props;
   const createSortHandler = (property) => (event) => {
     onRequestSort(event, property);
@@ -42,7 +16,7 @@ function EnhancedTableHead(props) {
   return (
     <TableHead>
       <TableRow>
-        {headCells.map((headCell) => (
+        {getHeadCells().map((headCell) => (
           <TableCell
             key={headCell.id}
             align='left'
@@ -60,16 +34,6 @@ function EnhancedTableHead(props) {
       </TableRow>
     </TableHead>
   );
-}
-
-EnhancedTableHead.propTypes = {
-  classes: PropTypes.object.isRequired,
-  numSelected: PropTypes.number.isRequired,
-  onRequestSort: PropTypes.func.isRequired,
-  onSelectAllClick: PropTypes.func.isRequired,
-  order: PropTypes.oneOf(['asc', 'desc']).isRequired,
-  orderBy: PropTypes.string.isRequired,
-  rowCount: PropTypes.number.isRequired,
 };
 
 export default EnhancedTableHead;

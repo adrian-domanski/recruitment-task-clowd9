@@ -1,7 +1,15 @@
-@import './global';
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Roboto', sans-serif;
+  background-color: #e9e9e9;
+}
 
 #root {
-  // display: flex;
   padding: 5rem 1rem;
 }
 
@@ -11,7 +19,6 @@
 
 .MuiDrawer-paperAnchorDockedBottom {
   border-top: 0 !important;
-  overflow: hidden;
 }
 
 .arrowIcon {
@@ -20,15 +27,11 @@
   cursor: pointer;
   padding: 5px;
   border-radius: 50%;
-
-  &:hover {
-    opacity: 1;
-    background-color: #eee;
-  }
 }
 
-.drawer-row {
-  overflow: hidden;
+.arrowIcon:hover {
+  opacity: 1;
+  background-color: #eee;
 }
 
 .permissions-list {
@@ -43,7 +46,3 @@ span.badge {
   padding: 10px;
   border-radius: 5px;
 }
-
-// .MuiTableRow-root.Mui-selected {
-//   background: #eee !important;
-// }

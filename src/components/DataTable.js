@@ -1,54 +1,44 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
-import TableContainer from '@material-ui/core/TableContainer';
-import TablePagination from '@material-ui/core/TablePagination';
-import TableRow from '@material-ui/core/TableRow';
-import Paper from '@material-ui/core/Paper';
-import Drawer from '@material-ui/core/Drawer';
+import {
+  Drawer,
+  Paper,
+  TableRow,
+  TablePagination,
+  TableContainer,
+  TableCell,
+  TableBody,
+  Table,
+} from '@material-ui/core';
 import ArrowDownwardIcon from '@material-ui/icons/ArrowDownward';
 import ArrowUpwardIcon from '@material-ui/icons/ArrowUpward';
 import { stableSort, getComparator } from '../utils';
-
-import EnhancedTableToolbar from './TableToolbar';
-import EnhancedTableHead from './TableHead';
-
-import { useState } from 'react';
 import clsx from 'clsx';
 
-export default function DataTable() {
+import TableToolbar from './TableToolbar';
+import TableHead from './TableHead';
+
+const DataTable = () => {
   const classes = useStyles();
   const [order, setOrder] = useState('asc');
   const [orderBy, setOrderBy] = useState('calories');
-  const [selected, setSelected] = useState([]);
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
   const [rows, setRows] = useState([]);
 
   const toggleDrawer = (rowId) => {
-    const tempRows = rows;
-    tempRows.forEach((row) => {
-      if (row.id === rowId) row.isDrawerOpen = !row.isDrawerOpen;
-    });
-
-    setRows([...tempRows]);
+    setRows(
+      rows.map((row) => {
+        if (row.id === rowId) row.isDrawerOpen = !row.isDrawerOpen;
+        return row;
+      })
+    );
   };
 
   const handleRequestSort = (event, property) => {
     const isAsc = orderBy === property && order === 'asc';
     setOrder(isAsc ? 'desc' : 'asc');
     setOrderBy(property);
-  };
-
-  const handleSelectAllClick = (event) => {
-    if (event.target.checked) {
-      const newSelecteds = rows.map((n) => n.name);
-      setSelected(newSelecteds);
-      return;
-    }
-    setSelected([]);
   };
 
   const handleChangePage = (event, newPage) => {
@@ -60,29 +50,20 @@ export default function DataTable() {
     setPage(0);
   };
 
-  const emptyRows =
-    rowsPerPage - Math.min(rowsPerPage, rows.length - page * rowsPerPage);
-
   return (
     <div className={clsx(classes.root, 'tableWrapper')}>
       <Paper className={classes.paper}>
-        <EnhancedTableToolbar
-          numSelected={selected.length}
-          rows={rows}
-          setRows={setRows}
-        />
+        <TableToolbar setRows={setRows} />
         <TableContainer>
           <Table
             className={classes.table}
             aria-labelledby='tableTitle'
             aria-label='enhanced table'
           >
-            <EnhancedTableHead
+            <TableHead
               classes={classes}
-              numSelected={selected.length}
               order={order}
               orderBy={orderBy}
-              onSelectAllClick={handleSelectAllClick}
               onRequestSort={handleRequestSort}
               rowCount={rows.length}
             />
@@ -157,16 +138,11 @@ export default function DataTable() {
                     );
                   })
               )}
-              {emptyRows > 0 && (
-                <TableRow>
-                  <TableCell colSpan={6} />
-                </TableRow>
-              )}
             </TableBody>
           </Table>
         </TableContainer>
         <TablePagination
-          rowsPerPageOptions={[5, 10, 25]}
+          rowsPerPageOptions={[5, 15, 30]}
           component='div'
           count={rows.length}
           rowsPerPage={rowsPerPage}
@@ -177,9 +153,9 @@ export default function DataTable() {
       </Paper>
     </div>
   );
-}
+};
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
   root: {
     width: '100%',
   },
@@ -210,3 +186,5 @@ const useStyles = makeStyles((theme) => ({
     },
   },
 }));
+
+export default DataTable;

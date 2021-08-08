@@ -1,5 +1,4 @@
 import React, { useEffect } from 'react';
-import PropTypes from 'prop-types';
 import clsx from 'clsx';
 import { lighten, makeStyles } from '@material-ui/core/styles';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -12,7 +11,7 @@ import CloseIcon from '@material-ui/icons/Close';
 import { useState } from 'react';
 import { getAllRows } from '../utils';
 
-const EnhancedTableToolbar = ({ numSelected, rows, setRows }) => {
+const EnhancedTableHead = ({ setRows }) => {
   const [showFilters, setShowFilters] = useState(false);
   const classes = useToolbarStyles();
   const [filters, setFilters] = useState({
@@ -27,52 +26,36 @@ const EnhancedTableToolbar = ({ numSelected, rows, setRows }) => {
     });
   };
 
+  // Set initial rows, apply filters
   useEffect(() => {
-    const allRows = getAllRows();
+    let rows = getAllRows();
     if (filters.name || filters.accountType) {
-      let filteredRows = allRows;
       if (filters.name) {
-        filteredRows = filteredRows.filter((row) =>
+        rows = rows.filter((row) =>
           row.nameAndSurname.toLowerCase().includes(filters.name.toLowerCase())
         );
       }
       if (filters.accountType) {
-        filteredRows = filteredRows.filter((row) =>
+        rows = rows.filter((row) =>
           row.accountType
             .toLowerCase()
             .includes(filters.accountType.toLowerCase())
         );
       }
-      return setRows(filteredRows);
     }
-    setRows(allRows);
+    setRows(rows);
   }, [filters, setRows]);
 
   return (
-    <Toolbar
-      className={clsx(classes.root, {
-        [classes.highlight]: numSelected > 0,
-      })}
-    >
-      {numSelected > 0 ? (
-        <Typography
-          className={classes.title}
-          color='inherit'
-          variant='subtitle1'
-          component='div'
-        >
-          {numSelected} selected
-        </Typography>
-      ) : (
-        <Typography
-          className={classes.title}
-          variant='h6'
-          id='tableTitle'
-          component='div'
-        >
-          Users data
-        </Typography>
-      )}
+    <Toolbar className={clsx(classes.root)}>
+      <Typography
+        className={classes.title}
+        variant='h6'
+        id='tableTitle'
+        component='div'
+      >
+        Users list
+      </Typography>
       {showFilters && (
         <>
           <TextField
@@ -124,8 +107,4 @@ const useToolbarStyles = makeStyles((theme) => ({
   },
 }));
 
-EnhancedTableToolbar.propTypes = {
-  numSelected: PropTypes.number.isRequired,
-};
-
-export default EnhancedTableToolbar;
+export default EnhancedTableHead;
